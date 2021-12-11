@@ -26,6 +26,5 @@ We can store the application specific values in global storage called applicatio
 That code is written in C# or VB.NET using a markup syntax called Razor. Razor pages written in C# end in .cshtml, and VB.NET pages have the extension .vbhtml. You can do anything you'd normally be able to do in an HTML page, like add JavaScript or jQuery. 
 -  @{...}, @variable, so they can be displayed without being interpreted as HTML. Even though we're inside a code block, we can go right back to writing HTML markup.
 -  set start up project, set start up page.
--  Layout pages(_SiteLayout): place common content that's shared across the site. In its head include third party library, like JQuery, so we don't need to include it in all other single pages. In its body, we can put logo in hearder, also we can check authentication, and base on that, display different menu items.
+-  Layout pages(_SiteLayout): place common content that's shared across the site. In its head include third party library, like JQuery, so we don't need to include it in all other single pages. In its body, we can put logo in hearder and design footer, also we can check authentication, and base on that, display different menu items.
 -  Render Section Method: is how you render a named section that's defined in a content page. The second parameter, Required, is set to false. That means the section can be ignored if it's not defined in the content page.
--  
