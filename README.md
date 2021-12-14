@@ -22,9 +22,21 @@ We can store the application specific values in global storage called applicatio
 - load event: part of page lifecycle. It's raised every time a request is made to the page and when the page is posted back to the server like when the Submit button's clicked.
 - page_load method:  event handler for the load event.
 
-### Web pages:add dynamic code to HTML pages 
-That code is written in C# or VB.NET using a markup syntax called Razor. Razor pages written in C# end in .cshtml, and VB.NET pages have the extension .vbhtml. You can do anything you'd normally be able to do in an HTML page, like add JavaScript or jQuery. 
+### Web pages:add dynamic code to HTML pages
+That code is written in C# or VB.NET using a markup syntax called Razor. Razor pages written in C# end in .cshtml, and VB.NET pages have the extension .vbhtml. You can do anything you'd normally be able to do in an HTML page, like add JavaScript or jQuery.
 -  @{...}, @variable, so they can be displayed without being interpreted as HTML. Even though we're inside a code block, we can go right back to writing HTML markup.
 -  set start up project, set start up page.
 -  Layout pages(_SiteLayout): place common content that's shared across the site. In its head include third party library, like JQuery, so we don't need to include it in all other single pages. In its body, we can put logo in hearder and design footer, also we can check authentication, and base on that, display different menu items.
 -  Render Section Method: is how you render a named section that's defined in a content page. The second parameter, Required, is set to false. That means the section can be ignored if it's not defined in the content page.
+
+### MVC
+- model: data, handle business logic.
+- view: UI, take info from model and show to user.
+- controller: get user input from view and pass result back to the view with the help of model.
+- action: The public methods that are defined within the controllers are called actions, like the index action.
+- by default, if the view method is called with no parameters, the view name would be the same as the action name.
+
+### Web Api
+ASP.NET Web API can serialize a model into formats like JSON and XML, and then it outputs it into the HTTP response.
+- App_Start -> WebApiConfig.cs routeTemplate
+- find url from app property, then add /api/{controller_name}
