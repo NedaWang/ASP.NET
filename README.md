@@ -40,3 +40,12 @@ That code is written in C# or VB.NET using a markup syntax called Razor. Razor p
 ASP.NET Web API can serialize a model into formats like JSON and XML, and then it outputs it into the HTTP response.
 - App_Start -> WebApiConfig.cs routeTemplate
 - find url from app property, then add /api/{controller_name}
+
+#### Routing request
+Web API uses a couple of different techniques for routing a request to the appropriate controller and action method.
+1. Routing table: It goes through them as you've defined them from top to bottom until it finds one that matches, and then it uses that one.
+
+#### match parameter
+1. URI path
+2. query string: get/api/tour?minPrice=0.00&maxPrice=200.00
+3. request body(post has a body) : DTO data transfer object
