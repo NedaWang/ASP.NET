@@ -49,3 +49,10 @@ Web API uses a couple of different techniques for routing a request to the appro
 1. URI path
 2. query string: get/api/tour?minPrice=0.00&maxPrice=200.00
 3. request body(post has a body) : DTO data transfer object
+
+#### parameter binding attributes
+1. [fromBody]
+2. [fromURI]
+
+#### HTTP verb attributes
+[HttpGet],[HttpDelete],[HttpPost],[HttpPut],[HttpHead],[HttpOptions],[HttpVerb],[HttpPatch]
