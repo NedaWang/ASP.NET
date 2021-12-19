@@ -56,3 +56,13 @@ Web API uses a couple of different techniques for routing a request to the appro
 
 #### HTTP verb attributes
 [HttpGet],[HttpDelete],[HttpPost],[HttpPut],[HttpHead],[HttpOptions],[HttpVerb],[HttpPatch]
+
+#### return values
+- void
+- HTTPResponseMessage
+- IHTTPActionResult (not self documenting)
+```
+return Ok(data); //200
+return InternalServerError(); //500
+return BadRequest(ModelState); // 400
+```
