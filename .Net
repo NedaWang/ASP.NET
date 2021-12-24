@@ -1,1 +1,187 @@
+# .NET
 
+.NET is a framework offered by Microsoft. You can think of it as a large toolbox full of useful tools, ranging between components that allow you to access data over the network, and user interfaces that give you the visual components needed to interact with a client application. \
+
+Garbage Conllection: Allows for the automatic process of freeing up memory. When an object is not needed, it is marked as garbage.  
+
+**Collections library**: store data that can be grouped together because that is similar
+```
+// List
+List<String> customers = new List<string>();
+customers.Add("Kim");
+customers.Add("John");
+customers.Add("Tim");
+Console.WriteLine(customers.Count);
+foreach (var customer in customers)    //hitting tab twice to get a template in VS
+{
+    Console.WriteLine(customer);
+}
+Console.WriteLine(customers[1]);
+
+// Dictionary: key-value
+Dictionary<String, String> config = new Dictionary<string, string>();
+config.Add("resolution", "1920x1080");
+config.Add("title", "MyWebsite");
+Console.WriteLine(config["title"]);
+foreach (var setting in config)
+{
+    Console.WriteLine(setting.Value);
+}
+
+// ArrayList, actually deprecated and replaced by List, non-generic
+using System.Collections;   // not belong to System.Collections.Generic, meaning we can't specify what type we can store
+ArrayList list = new ArrayList();
+list.Add("some string");
+// Boxing is the process of converting your string, or date, or whatever into a regular C# object.
+// We are boxing the integer into an object, and so now it loses its integer properties.
+int i = 123;
+object o = i;
+// Unboxing 
+i = (int)o;
+//This is the concept behind how we can store any type into an ArrayList, which boxes the value in the background.
+String s = (String)list[0];
+
+// Hashtable, non-generic, replaced by dictionary
+Hashtable table = new Hashtable();
+table.Add("title", "MyWebsite");
+var s = (String)table["title"];
+Console.WriteLine(s);
+```
+
+**Concurrent Vollection**: provides thread-safe capabilities, when a collection needs to be used in a multithreaded application.
+```
+static ConcurrentDictionary<int, int> items = new ConcurrentDictionary<int, int>();
+
+        static void Main(string[] args)
+        {
+            Thread thread1 = new Thread(new ThreadStart(AddItem));
+            Thread thread2 = new Thread(new ThreadStart(AddItem));
+
+            thread1.Start();
+            thread2.Start();
+        }
+
+        static void AddItem()
+        {
+            items.TryAdd(1, 2);
+            Console.WriteLine(items.Count);
+        }
+```
+
+**BitArray Collection**: allows us to count and display bits, as well as perform bitwise operations.
+```
+bool[] preload = new bool[3] { true, false, true };
+BitArray enemyGrid = new BitArray(preload);
+enemyGrid[0] = false;
+enemyGrid[1] = true;
+enemyGrid.Set(2, false);
+```
+
+**Tuple**: allows us to set items of different types in one object. Although a tuple in not part of the collection namespace, it does, in a sense, behave like one and provides some interesting features.
+```
+Tuple<int, String, bool> myTuple = new Tuple<int, string, bool>(1, "hello", true);
+var myTuple2 = Tuple.Create(1, "hello", true);
+Console.WriteLine(myTuple.Item2);
+```
+
+**Stack**: is a last in, first out collection.
+```
+Stack<String> pancakes = new Stack<string>();
+pancakes.Push("first pancake made");
+pancakes.Push("second pancake made");
+pancakes.Push("last pancake made");
+
+foreach (var pancake in pancakes)
+{
+    Console.WriteLine(pancake); // last, second, first
+}
+
+Console.WriteLine(pancakes.Pop());  // remove the last one.
+Console.WriteLine(pancakes.Peek()); // see the last one, but not remove it.
+Console.WriteLine(pancakes.Peek());
+```
+
+**Queue**: is a first in, first out collection.
+```
+Queue<int> myQueue = new Queue<int>();
+myQueue.Enqueue(1);  // Enqueue()
+myQueue.Enqueue(2);
+myQueue.Enqueue(3);
+foreach (var item in myQueue)
+{
+    Console.WriteLine(item);  // 1,2,3
+}
+Console.WriteLine(myQueue.Dequeue());  // Dequeue()
+Console.WriteLine(myQueue.Peek());  // Peek()
+```
+
+**Hashset**: optimized set collection, it helps eliminate duplicate strings or elements in an array. Another useful feature of the hash set collection is an overlap. Overlaps allow us to compare another array or set to see if it contains the same items that the hash set contains.
+```
+var myHash = new HashSet<String>();
+myHash.Add("hello");
+myHash.Add("hello");
+Console.WriteLine(myHash.Count);  // 1
+
+String[] s = new String[] { "hello" };
+Console.WriteLine(myHash.Overlaps(s));  // true: there is an overlap item.
+```
+
+## Async Programming
+Synchronous:
+```
+static void Main(string[] args)
+{
+    Console.WriteLine("Downloading file");
+    Download();
+    Console.ReadLine();
+}
+static void Download()
+{
+    Thread.Sleep(3000);
+    Console.WriteLine("Download Complete");
+}
+```
+Async
+```
+static void Main(string[] args)
+{
+    Console.WriteLine("Downloading file");
+    Download();
+    Console.ReadLine();
+}
+static void Download()
+{
+    // A task represents a single asynchronous operation that does not return a value.
+    // Run method: It allows us to just start a task with default values, without having to do any set up or provide any additional parameters
+    Task.Run(() => {    // Everything you see in these braces is a function without a name. And the function has been embedded in the parameter of Task.Run
+        Thread.Sleep(3000);
+        Console.WriteLine("Download Complete");
+    });
+}
+```
+**async and await** keywords: return the flow of the program to the Await line when the execution of the task it's waiting on is complete.
+```
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Downloading file");
+            DownloadAsync();
+            Console.ReadLine();
+        }
+
+        static async void DownloadAsync()   // calls Await needs to be an Async function
+        {
+            await Network.Download();  // without await keyword, console will write message before another thread complete
+            Console.WriteLine("Download Complete");
+        }
+    }
+
+    class Network
+    {
+        static public Task Download()
+        {
+            return Task.Run(() => Thread.Sleep(3000));
+        }
+    }
+```
